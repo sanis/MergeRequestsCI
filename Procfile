@@ -1,1 +1,1 @@
-web: make serve
+web: npm run start

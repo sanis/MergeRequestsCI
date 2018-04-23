@@ -10,6 +10,7 @@
       <th ng-bind-html="':+1:'|emojify"></th>
       <th ng-bind-html="':-1:'|emojify"></th>
       <!--<th class="text-center">Have I voted?</th>-->
+      <th class="text-center">Comments</th>
       <th class="text-center">CI</th>
     </tr>
   </thead>
@@ -21,10 +22,14 @@
       <td class="text-center">
           <span tooltips tooltip-template="{{ mergeRequest.author.name }}" tooltip-size="small">
               <img class="author" ng-src="{{ mergeRequest.author.avatar_url }}" width="35px" alt="{{ mergeRequest.author.name }}"></img>
-              {{ mergeRequest.author.name }}
           </span>
       </td>
-      <td ng-if="vm.displayBranchColumn">{{ mergeRequest.source_branch }} &#8680; {{ mergeRequest.target_branch }}</td>
+      <td ng-if="vm.displayBranchColumn">
+          <span ng-class="{'success': mergeRequest.target_branch == 'master',  'warning': mergeRequest.target_branch == 'develop'}" class="badge">
+              {{ mergeRequest.target_branch }}
+          </span>
+          <!--{{ mergeRequest.source_branch }} &#8680; {{ mergeRequest.target_branch }} -->
+      </td>
       <td ng-if="vm.displayLabelsColumn">
         <ul class="menu simple">
           <li ng-repeat="label in mergeRequest.formatted_labels">
@@ -34,7 +39,7 @@
       </td>
       <td class="text-center">
           <span tooltips tooltip-template="{{ mergeRequest.upvoters.join(', ') }}" tooltip-size="small" tooltip-hidden="{{ mergeRequest.upvoters.length == 0 }}">
-              <span ng-class="{'success': mergeRequest.upvotes > 0, 'alert': mergeRequest.upvotes == 0}" class="upvote badge">
+              <span ng-class="{'success': mergeRequest.upvotes >= 2,  'warning': mergeRequest.upvotes == 1, 'alert': mergeRequest.upvotes == 0}" class="upvote badge">
                   {{ mergeRequest.upvotes }}
               </span>
           </span>
@@ -46,6 +51,9 @@
               </span>
           </span>
       </td>
+        <td class="text-center">
+            {{ mergeRequest.user_notes_count }}
+        </td>
       <!--<td class="text-center">-->
         <!--<span ng-if="mergeRequest.i_have_voted === 0">-</span>-->
         <!--<span ng-if="mergeRequest.i_have_voted === 1" ng-bind-html="':+1:'|emojify"></span>-->

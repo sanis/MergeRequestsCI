@@ -21,13 +21,13 @@ table {
 .top-bar {
     color: $tertiary-color;
 
-    margin-bottom: 4em;
+    //margin-bottom: 4em;
     border-bottom: 3px solid $secondary-color;
 
     .menu-text.title {
         padding-top: 0;
         padding-bottom: 0;
-        font-size: 2em;
+        font-size: 1.5em;
         font-weight: 400;
 
         a {

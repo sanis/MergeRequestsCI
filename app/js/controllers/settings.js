@@ -1,26 +1,28 @@
 module.exports = function (gitLabManager, configManager, $location) {
-  var vm = this;
-  vm.error = false;
-  vm.config = {
-    url: configManager.getUrl(),
-    private_token: configManager.getPrivateToken(),
-    refresh_rate: configManager.getRefreshRate(),
-    display_branch_column: configManager.displayBranchColumn(),
-    display_labels_column: configManager.displayLabelsColumn()
-  };
+    var vm = this;
+    vm.error = false;
+    vm.config = {
+        url: configManager.getUrl(),
+        users: configManager.getUsers(),
+        private_token: configManager.getPrivateToken(),
+        refresh_rate: configManager.getRefreshRate(),
+        display_branch_column: configManager.displayBranchColumn(),
+        display_labels_column: configManager.displayLabelsColumn()
+    };
 
-  vm.save = function(config) {
-    gitLabManager.authenticate(
-      config.url,
-      config.private_token
-    ).then(function success() {
-      configManager.setRefreshRate(config.refresh_rate);
-      configManager.setDisplayBranchColumn(config.display_branch_column);
-      configManager.setDisplayLabelsColumn(config.display_labels_column);
-      $location.path("/");
-    }, function failure() {
-      vm.error = true;
-    });
+    vm.save = function (config) {
+        configManager.setUsers(config.users);
+        gitLabManager.authenticate(
+            config.url,
+            config.private_token
+        ).then(function success() {
+            configManager.setRefreshRate(config.refresh_rate);
+            configManager.setDisplayBranchColumn(config.display_branch_column);
+            configManager.setDisplayLabelsColumn(config.display_labels_column);
+            $location.path("/");
+        }, function failure() {
+            vm.error = true;
+        });
 
-  }
+    }
 };

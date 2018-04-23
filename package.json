@@ -24,6 +24,6 @@
     "moment": "^2.21.0"
   },
   "scripts": {
-    "start": "serve -f app/assets/favicon.ico public/ --port $PORT"
+    "start": "brunch b --production && serve -f app/assets/favicon.ico public/ --port $PORT"
   }
 }

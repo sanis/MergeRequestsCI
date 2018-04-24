@@ -17,16 +17,12 @@ module.exports = function ($interval, MergeRequestFetcher, configManager, favico
                     })
                 });
 
-                console.log(allMergeRequests);
-
                 allMergeRequests.sort(
                     function (a, b) {
                         //return a.id < b.id;
                         return moment(a.updated_at, moment.ISO_8601).unix() > moment(b.updated_at, moment.ISO_8601).unix() ? -1 : 1;
                     }
                 );
-
-                console.log(allMergeRequests);
 
                 vm.mergeRequests = allMergeRequests;
 

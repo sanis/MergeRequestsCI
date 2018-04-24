@@ -28,6 +28,9 @@
           <span ng-class="{'success': mergeRequest.target_branch == 'master',  'warning': mergeRequest.target_branch == 'develop'}" class="badge">
               {{ mergeRequest.target_branch }}
           </span>
+        <span ng-if="mergeRequest.merge_status != 'can_be_merged'" ng-class="{'warning': mergeRequest.merge_status == 'unchecked', 'alert': mergeRequest.merge_status != 'can_be_merged' && mergeRequest.merge_status != 'unchecked' }" class="badge">
+            {{ mergeRequest.merge_status }}
+        </span>
           <!--{{ mergeRequest.source_branch }} &#8680; {{ mergeRequest.target_branch }} -->
       </td>
       <td ng-if="vm.displayLabelsColumn">
